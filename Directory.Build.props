@@ -1,0 +1,23 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Version>0.1</Version>
+
+    <!-- When we bump the minor version, this gets incremented so that the new minor release starts at revision 0. -->
+    <GitCommitCountOffset>0</GitCommitCountOffset>
+    <Authors>Marius Volkhart</Authors>
+    <PackageProjectUrl>https://github.com/MariusVolkhart/Nopen.NET</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/MariusVolkhart/Nopen.NET/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <Copyright>Copyright 2019 Marius Volkhart</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>false</IncludeSymbols>
+    <IncludeSource>false</IncludeSource>
+
+    <!-- Force debug symbols to be embedded in the dll -->
+    <DebugType>embedded</DebugType>
+
+    <!-- Embed source code into the dll. This resuts in better debugability and our code is compile-time only. -->
+    <EmbedAllSources>true</EmbedAllSources>
+    <LangVersion>latest</LangVersion>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+</Project>

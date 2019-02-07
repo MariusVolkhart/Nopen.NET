@@ -1,0 +1,19 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="Powerwash">
+    <!-- Delete the bin directory -->
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\$(BaseOutputPath)" />
+    <!-- Delete the obj directory -->
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\$(BaseIntermediateOutputPath)" />
+  </Target>
+  <Target Name="VSTestIfTestProject">
+    <CallTarget Targets="VSTest" Condition="'$(IsTestProject)' == 'true'" />
+  </Target>
+  <Target Name="UpdateVersionWithCommitCount" BeforeTargets="CoreCompile">
+    <Exec Command="git rev-list --count HEAD" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitCount" />
+    </Exec>
+    <CreateProperty Value="$(Version).$([MSBuild]::Subtract($(GitCommitCount), $(GitCommitCountOffset)))">
+      <Output TaskParameter="Value" PropertyName="Version"/>
+    </CreateProperty>
+  </Target>
+</Project>
