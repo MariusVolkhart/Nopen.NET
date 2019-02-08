@@ -15,7 +15,7 @@ C# creates new types as open by default which can be dangerous. This analyzer en
 intent to leave a class open is explicitly declared.
 
 ```csharp
-using using Nopen.NET.Attributes;
+using Nopen.NET.Attributes;
 
 sealed class Foo {}
 abstract class Bar {}
