@@ -40,7 +40,7 @@ For more information see Item 19 of Effective Java, Third Edition.
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Nopen.NET" Version="<version_here>" />
+  <PackageReference Include="Nopen.NET" Version="<version_here>" PrivateAssets="All" />
 </ItemGroup>
 ```
 
