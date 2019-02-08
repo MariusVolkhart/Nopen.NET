@@ -36,15 +36,16 @@ For more information see Item 19 of Effective Java, Third Edition.
 
 ## Download
 
-[![NuGet](https://img.shields.io/nuget/v/Refit.svg)](https://www.nuget.org/packages/Refit/)
+[![NuGet](https://img.shields.io/nuget/v/Nopen.NET.svg)](https://www.nuget.org/packages/Nopen.NET/)
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Nopen.NET" Version="1.0.0" />
+  <PackageReference Include="Nopen.NET" Version="<version_here>" />
 </ItemGroup>
 ```
 
-
+## Credits
+Thanks to Jake Wharton and his [Nope'n project](https://github.com/JakeWharton/nopen) for the idea.
 
 ## License
 
