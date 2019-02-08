@@ -8,12 +8,17 @@
   <Target Name="VSTestIfTestProject">
     <CallTarget Targets="VSTest" Condition="'$(IsTestProject)' == 'true'" />
   </Target>
-  <Target Name="UpdateVersionWithCommitCount" BeforeTargets="CoreCompile">
+  <Target Name="CalculateGitCommitCount" BeforeTargets="CoreCompile;GenerateNuspec">
     <Exec Command="git rev-list --count HEAD" ConsoleToMSBuild="true">
       <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitCount" />
     </Exec>
-    <CreateProperty Value="$(Version).$([MSBuild]::Subtract($(GitCommitCount), $(GitCommitCountOffset)))">
+    <CreateProperty Value="$(VersionPrefix).$([MSBuild]::Subtract($(GitCommitCount), $(GitCommitCountOffset)))">
+
+      <!-- Used in the assembly version -->
       <Output TaskParameter="Value" PropertyName="Version"/>
+
+      <!-- Used by NuGet -->
+      <Output TaskParameter="Value" PropertyName="PackageVersion"/>
     </CreateProperty>
   </Target>
 </Project>
