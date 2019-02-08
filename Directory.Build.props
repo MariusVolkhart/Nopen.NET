@@ -9,6 +9,8 @@
     <PackageReleaseNotes>https://github.com/MariusVolkhart/Nopen.NET/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <Copyright>Copyright 2019 Marius Volkhart</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>analyzer roslyn-analyzer code-quality sealed class classes</PackageTags>
+    <Description>A Roslyn analyzer which requires that classes be sealed, abstract or attributed with [Open].</Description>
     <IncludeSymbols>false</IncludeSymbols>
     <IncludeSource>false</IncludeSource>
 

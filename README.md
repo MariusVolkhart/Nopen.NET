@@ -36,7 +36,7 @@ For more information see Item 19 of Effective Java, Third Edition.
 
 ## Download
 
-C# projects using NuGet
+[![NuGet](https://img.shields.io/nuget/v/Refit.svg)](https://www.nuget.org/packages/Refit/)
 
 ```xml
 <ItemGroup>
