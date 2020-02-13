@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <VersionPrefix>1.0-beta.</VersionPrefix>
+    <VersionPrefix>1.0-beta</VersionPrefix>
 
     <!-- When we bump the minor version, this gets incremented so that the new minor release starts at revision 0. -->
     <GitCommitCountOffset>8</GitCommitCountOffset>
