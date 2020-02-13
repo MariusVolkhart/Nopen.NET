@@ -3,13 +3,6 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-strategy:
-  matrix:
-    core2:
-      netCoreAppVersion: 'netcoreapp2.1'
-    core3:
-      netCoreAppVersion: 'netcoreapp3.1'
-
 pool:
   vmImage: 'vs2017-win2016'
 
@@ -26,7 +19,14 @@ steps:
   inputs:
     command: test
     projects: '*Test/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --logger nunit --framework $(netCoreAppVersion) --collect "Code coverage"'
+    arguments: '--configuration $(buildConfiguration) --logger nunit --framework netcoreapp3.1 --collect "Code coverage"'
+  displayName: 'Test'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '*Test/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --logger nunit --framework netcoreapp2.1 --collect "Code coverage"'
   displayName: 'Test'
 
 - task: NuGetCommand@2
