@@ -11,7 +11,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>analyzer roslyn-analyzer code-quality sealed class classes</PackageTags>
     <Description>A Roslyn analyzer which requires that classes be sealed, abstract or attributed with [Open].</Description>
-    <PackageLicenseUrl>https://github.com/MariusVolkhart/Nopen.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>false</IncludeSymbols>
     <IncludeSource>false</IncludeSource>
 
