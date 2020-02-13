@@ -12,15 +12,14 @@
     <PackageTags>analyzer roslyn-analyzer code-quality sealed class classes</PackageTags>
     <Description>A Roslyn analyzer which requires that classes be sealed, abstract or attributed with [Open].</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <IncludeSymbols>false</IncludeSymbols>
-    <IncludeSource>false</IncludeSource>
 
-    <!-- Force debug symbols to be embedded in the dll -->
-    <DebugType>embedded</DebugType>
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-    <!-- Embed source code into the dll. This resuts in better debugability and our code is compile-time only. -->
-    <EmbedAllSources>true</EmbedAllSources>
-    <LangVersion>latest</LangVersion>
+    <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <LangVersion>7.3</LangVersion>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 </Project>
