@@ -29,9 +29,10 @@ steps:
     arguments: '--configuration $(buildConfiguration) --logger nunit --framework netcoreapp2.1 --collect "Code coverage"'
   displayName: 'Test'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: push
+    packagesToPush: $(Build.ArtifactStagingDirectory)/*.nupkg,$(Build.ArtifactStagingDirectory)/*.snupkg
     nuGetFeedType: external
     publishFeedCredentials: 'NuGet Nopen.NET'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
