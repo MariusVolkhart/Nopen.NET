@@ -6,10 +6,6 @@ namespace Nopen.NET.Test
 {
   public class OpenClassAnalyzerTest : DiagnosticVerifier
   {
-    [SetUp]
-    public void Setup()
-    {
-    }
 
     [TestCase("public ")]
     [TestCase("internal ")]
