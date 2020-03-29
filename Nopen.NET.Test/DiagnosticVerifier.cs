@@ -1,6 +1,6 @@
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +17,7 @@ namespace Nopen.NET.Test
         /// <summary>
         /// Get the CSharp analyzer being tested - to be implemented in non-abstract class
         /// </summary>
-        protected virtual DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
+        protected virtual DiagnosticAnalyzer? GetCSharpDiagnosticAnalyzer()
         {
             return null;
         }
@@ -25,7 +25,7 @@ namespace Nopen.NET.Test
         /// <summary>
         /// Get the Visual Basic analyzer being tested (C#) - to be implemented in non-abstract class
         /// </summary>
-        protected virtual DiagnosticAnalyzer GetBasicDiagnosticAnalyzer()
+        protected virtual DiagnosticAnalyzer? GetBasicDiagnosticAnalyzer()
         {
             return null;
         }
@@ -41,7 +41,8 @@ namespace Nopen.NET.Test
         /// <param name="expected"> DiagnosticResults that should appear after the analyzer is run on the source</param>
         protected void VerifyCSharpDiagnostic(string source, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(new[] { source }, LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), expected);
+            var analyzer = GetCSharpDiagnosticAnalyzer() ?? throw new NullReferenceException();
+            VerifyDiagnostics(new[] { source }, LanguageNames.CSharp, analyzer, expected);
         }
 
         /// <summary>
@@ -52,7 +53,8 @@ namespace Nopen.NET.Test
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the source</param>
         protected void VerifyBasicDiagnostic(string source, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(new[] { source }, LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), expected);
+            var analyzer = GetBasicDiagnosticAnalyzer() ?? throw new NullReferenceException();
+            VerifyDiagnostics(new[] { source }, LanguageNames.VisualBasic, analyzer, expected);
         }
 
         /// <summary>
@@ -63,7 +65,8 @@ namespace Nopen.NET.Test
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
         protected void VerifyCSharpDiagnostic(string[] sources, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(sources, LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), expected);
+            var analyzer = GetCSharpDiagnosticAnalyzer() ?? throw new NullReferenceException();
+            VerifyDiagnostics(sources, LanguageNames.CSharp, analyzer, expected);
         }
 
         /// <summary>
@@ -74,11 +77,12 @@ namespace Nopen.NET.Test
         /// <param name="expected">DiagnosticResults that should appear after the analyzer is run on the sources</param>
         protected void VerifyBasicDiagnostic(string[] sources, params DiagnosticResult[] expected)
         {
-            VerifyDiagnostics(sources, LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), expected);
+            var analyzer = GetBasicDiagnosticAnalyzer() ?? throw new NullReferenceException();
+            VerifyDiagnostics(sources, LanguageNames.VisualBasic, analyzer, expected);
         }
 
         /// <summary>
-        /// General method that gets a collection of actual diagnostics found in the source after the analyzer is run, 
+        /// General method that gets a collection of actual diagnostics found in the source after the analyzer is run,
         /// then verifies each of them.
         /// </summary>
         /// <param name="sources">An array of strings to create source documents from to run the analyzers on</param>

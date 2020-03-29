@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using JetBrains.Annotations;
 
 namespace Nopen.NET
 {
@@ -15,7 +14,6 @@ namespace Nopen.NET
   /// <item><description><c>[Open] class Name</c></description></item>
   /// </list>
   /// </remarks>
-  [PublicAPI]
   [AttributeUsage(AttributeTargets.Class, Inherited = false)]
   [Conditional("Nopen")] // This attribute should be removed during compilation
   public sealed class OpenAttribute : Attribute
@@ -23,14 +21,13 @@ namespace Nopen.NET
     /// <summary>
     /// An optional reason as to why the class is <c>[Open]</c> rather than <c>sealed</c> or <c>abstract</c>.
     /// </summary>
-    [CanBeNull]
-    public string Reason { get; }
+    public string? Reason { get; }
 
     /// <summary>
     /// Creates a new attribute with an optional reason.
     /// </summary>
     /// <param name="reason"><see cref="Reason"/></param>
-    public OpenAttribute(string reason = null)
+    public OpenAttribute(string? reason = null)
     {
       Reason = reason;
     }

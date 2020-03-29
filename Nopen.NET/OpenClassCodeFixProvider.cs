@@ -34,7 +34,7 @@ namespace Nopen.NET
       var diagnosticSpan = diagnostic.Location.SourceSpan;
 
       // Find the type declaration identified by the diagnostic.
-      var classDeclaration = (ClassDeclarationSyntax) root.FindNode(diagnosticSpan);
+      var classDeclaration = (ClassDeclarationSyntax) root!.FindNode(diagnosticSpan);
 
       // Register a code action that will invoke the fix.
       context.RegisterCodeFix(CodeAction.Create(
@@ -56,7 +56,7 @@ namespace Nopen.NET
 
       // Replace the old class declaration with the new class declaration.
       var oldRoot = await document.GetSyntaxRootAsync(cancellationToken);
-      var newRoot = oldRoot.ReplaceNode(classDeclaration, newDeclaration);
+      var newRoot = oldRoot.ReplaceNode(classDeclaration, newDeclaration)!;
       return document.WithSyntaxRoot(newRoot);
     }
   }

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
@@ -20,7 +21,7 @@ namespace Nopen.NET.Test
         /// Returns the codefix being tested (C#) - to be implemented in non-abstract class
         /// </summary>
         /// <returns>The CodeFixProvider to be used for CSharp code</returns>
-        protected virtual CodeFixProvider GetCSharpCodeFixProvider()
+        protected virtual CodeFixProvider? GetCSharpCodeFixProvider()
         {
             return null;
         }
@@ -29,7 +30,7 @@ namespace Nopen.NET.Test
         /// Returns the codefix being tested (VB) - to be implemented in non-abstract class
         /// </summary>
         /// <returns>The CodeFixProvider to be used for VisualBasic code</returns>
-        protected virtual CodeFixProvider GetBasicCodeFixProvider()
+        protected virtual CodeFixProvider? GetBasicCodeFixProvider()
         {
             return null;
         }
@@ -43,7 +44,9 @@ namespace Nopen.NET.Test
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied</param>
         protected void VerifyCSharpFix(string oldSource, string newSource, int? codeFixIndex = null, bool allowNewCompilerDiagnostics = false)
         {
-            VerifyFix(LanguageNames.CSharp, GetCSharpDiagnosticAnalyzer(), GetCSharpCodeFixProvider(), oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
+            var cSharpAnalyzer = GetCSharpDiagnosticAnalyzer() ?? throw new NullReferenceException();
+            var cSharpCodeFix = GetCSharpCodeFixProvider() ?? throw new NullReferenceException();
+            VerifyFix(LanguageNames.CSharp, cSharpAnalyzer, cSharpCodeFix, oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
         }
 
         /// <summary>
@@ -55,7 +58,9 @@ namespace Nopen.NET.Test
         /// <param name="allowNewCompilerDiagnostics">A bool controlling whether or not the test will fail if the CodeFix introduces other warnings after being applied</param>
         protected void VerifyBasicFix(string oldSource, string newSource, int? codeFixIndex = null, bool allowNewCompilerDiagnostics = false)
         {
-            VerifyFix(LanguageNames.VisualBasic, GetBasicDiagnosticAnalyzer(), GetBasicCodeFixProvider(), oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
+            var basicAnalyzer = GetBasicDiagnosticAnalyzer() ?? throw new NullReferenceException();
+            var basicCodeFix = GetBasicCodeFixProvider() ?? throw new NullReferenceException();
+            VerifyFix(LanguageNames.VisualBasic, basicAnalyzer, basicCodeFix, oldSource, newSource, codeFixIndex, allowNewCompilerDiagnostics);
         }
 
         /// <summary>
@@ -110,7 +115,7 @@ namespace Nopen.NET.Test
                     Assert.IsTrue(false,
                         string.Format("Fix introduced new compiler diagnostics:\r\n{0}\r\n\r\nNew document:\r\n{1}\r\n",
                             string.Join("\r\n", newCompilerDiagnostics.Select(d => d.ToString())),
-                            document.GetSyntaxRootAsync().Result.ToFullString()));
+                            document.GetSyntaxRootAsync().Result!.ToFullString()));
                 }
 
                 //check if there are analyzer diagnostics left after the code fix

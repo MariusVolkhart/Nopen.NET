@@ -1,0 +1,4 @@
+<RuleSet Name="Development"
+         Description="Rules for use during development. These are more lax than what is enforced by CI to make hacking easier."
+         ToolsVersion="15.0">
+</RuleSet>

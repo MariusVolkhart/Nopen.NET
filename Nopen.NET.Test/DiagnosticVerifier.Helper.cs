@@ -167,7 +167,7 @@ namespace Nopen.NET.Test
                 solution = solution.AddDocument(documentId, newFileName, SourceText.From(source));
                 count++;
             }
-            return solution.GetProject(projectId);
+            return solution.GetProject(projectId)!;
         }
         #endregion
     }

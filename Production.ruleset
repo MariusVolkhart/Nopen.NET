@@ -1,0 +1,31 @@
+<RuleSet Name="Production"
+         Description="Rules that apply to both development and CI"
+         ToolsVersion="15.0">
+  <Include Path="Development.ruleset" Action="Default" />
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
+    <!-- Nullable reference types https://github.com/dotnet/roslyn/blob/f74016a74c964faa446c9514d94af59af5fe24db/src/Compilers/CSharp/Portable/Errors/ErrorCode.cs#L1629 -->
+    <Rule Id="CS8600" Action="Error" />
+    <Rule Id="CS8601" Action="Error" />
+    <Rule Id="CS8602" Action="Error" />
+    <Rule Id="CS8603" Action="Error" />
+    <Rule Id="CS8604" Action="Error" />
+    <Rule Id="CS8605" Action="Warning" />
+    <Rule Id="CS8606" Action="Warning" />
+    <Rule Id="CS8607" Action="Warning" />
+    <Rule Id="CS8608" Action="Error" />
+    <Rule Id="CS8609" Action="Error" />
+    <Rule Id="CS8610" Action="Error" />
+    <Rule Id="CS8611" Action="Error" />
+    <Rule Id="CS8612" Action="Error" />
+    <Rule Id="CS8613" Action="Error" />
+    <Rule Id="CS8614" Action="Error" />
+    <Rule Id="CS8615" Action="Error" />
+    <Rule Id="CS8616" Action="Error" />
+    <Rule Id="CS8617" Action="Error" />
+    <Rule Id="CS8618" Action="Error" />
+    <Rule Id="CS8619" Action="Error" />
+    <Rule Id="CS8620" Action="Error" />
+    <Rule Id="CS8621" Action="Error" />
+    <Rule Id="CS8622" Action="Error" />
+  </Rules>
+</RuleSet>

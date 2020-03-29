@@ -12,6 +12,8 @@
     <PackageTags>analyzer roslyn-analyzer code-quality sealed class classes</PackageTags>
     <Description>A Roslyn analyzer which requires that classes be sealed, abstract or attributed with [Open].</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <CodeAnalysisRuleSet>$(SolutionDir)Development.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(ContinuousIntegrationBuild)' == 'true'">$(SolutionDir)Production.ruleset</CodeAnalysisRuleSet>
 
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -19,8 +21,9 @@
     <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <Features>strict</Features>
+    <Nullable>enable</Nullable>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 </Project>
