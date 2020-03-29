@@ -36,8 +36,9 @@ steps:
     custom: nuget
     arguments: >
       push $(Build.ArtifactStagingDirectory)\*.nupkg
-      -s https://www.nuget.org/api/v2/package/
-      -k $(NugetApiKey)
+      -Source https://www.nuget.org/api/v2/package/
+      -ApiKey $(NugetApiKey)
+      -Verbosity detailed
 
 - task: DotNetCoreCLI@2
   displayName: Push Snuget Package
@@ -46,5 +47,6 @@ steps:
     custom: nuget
     arguments: >
       push $(Build.ArtifactStagingDirectory)\*.snupkg
-      -s https://www.nuget.org/api/v2/package/
-      -k $(NugetApiKey)
+      -Source https://www.nuget.org/api/v2/package/
+      -ApiKey $(NugetApiKey)
+      -Verbosity detailed
