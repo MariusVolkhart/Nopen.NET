@@ -12,7 +12,7 @@ variables:
 steps:
 
 # Restore, build, & pack the projects
-- script: dotnet pack --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+- script: dotnet pack --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory) -p:ContinuousIntegrationBuild=true
   displayName: 'Build $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
