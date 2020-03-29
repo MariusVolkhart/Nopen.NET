@@ -29,24 +29,15 @@ steps:
     arguments: '--configuration $(buildConfiguration) --logger nunit --framework netcoreapp2.1 --collect "Code coverage"'
   displayName: 'Test'
 
-- task: DotNetCoreCLI@2
-  displayName: Push Nuget Package
+- task: NuGetToolInstaller@1
   inputs:
-    command: custom
-    custom: nuget
-    arguments: >
-      push $(Build.ArtifactStagingDirectory)\*.nupkg
-      -Source https://www.nuget.org/api/v2/package/
-      -ApiKey $(NugetApiKey)
-      -Verbosity detailed
+    versionSpec: '5.5.0'
 
-- task: DotNetCoreCLI@2
-  displayName: Push Snuget Package
+- task: NuGetCommand@2
   inputs:
-    command: custom
-    custom: nuget
-    arguments: >
-      push $(Build.ArtifactStagingDirectory)\*.snupkg
-      -Source https://www.nuget.org/api/v2/package/
-      -ApiKey $(NugetApiKey)
-      -Verbosity detailed
+    command: push
+    packagesToPush: $(Build.ArtifactStagingDirectory)/*.nupkg;$(Build.ArtifactStagingDirectory)/*.snupkg
+    nuGetFeedType: external
+    publishFeedCredentials: 'NuGet Nopen.NET'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: 'NuGet Push'
