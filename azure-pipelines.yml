@@ -20,14 +20,14 @@ steps:
     command: test
     projects: '*Test/*.csproj'
     arguments: '--configuration $(buildConfiguration) --logger nunit --framework netcoreapp3.1 --collect "Code coverage"'
-  displayName: 'Test'
+  displayName: 'Test .NET Core 3.1'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: test
     projects: '*Test/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --logger nunit --framework netcoreapp2.1 --collect "Code coverage"'
-  displayName: 'Test'
+    arguments: '--configuration $(buildConfiguration) --logger nunit --framework netcoreapp6.0 --collect "Code coverage"'
+  displayName: 'Test .NET Core 6.0'
 
 - task: NuGetToolInstaller@1
   inputs:
