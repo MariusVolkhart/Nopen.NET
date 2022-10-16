@@ -20,10 +20,10 @@ namespace Nopen.NET
   [DiagnosticAnalyzer(LanguageNames.CSharp)]
   public sealed class OpenClassAnalyzer : DiagnosticAnalyzer
   {
-    private const string Title = "Classes should be explicitly marked sealed, abstract, or [Open]";
+    private const string Title = "Types should be explicitly marked sealed, abstract, or [Open]";
 
     internal const string MessageFormat =
-      "Class '{0}' is implicitly open. Classes should be explicitly marked sealed, abstract, or [Open].";
+      "Type '{0}' is implicitly open. Types should be explicitly marked sealed, abstract, or [Open].";
 
     private const string Description = "C# creates new types as open by default which can be dangerous. "
                                        + "This analyzer ensures that the intent to leave a class open is explicitly declared. "
@@ -47,13 +47,13 @@ namespace Nopen.NET
     {
       context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
       context.EnableConcurrentExecution();
-      context.RegisterSyntaxNodeAction(AnalyzeSyntaxNode, SyntaxKind.ClassDeclaration);
+      context.RegisterSyntaxNodeAction(AnalyzeSyntaxNode, SyntaxKind.ClassDeclaration, SyntaxKind.RecordDeclaration);
     }
 
     private static void AnalyzeSyntaxNode(SyntaxNodeAnalysisContext context)
     {
       // Find implicitly typed variable declarations.
-      var declaration = (ClassDeclarationSyntax) context.Node;
+      var declaration = (TypeDeclarationSyntax) context.Node;
       var modifiers = declaration.Modifiers.Select(it => it.Kind()).ToList();
 
       if (modifiers.Contains(SyntaxKind.StaticKeyword))

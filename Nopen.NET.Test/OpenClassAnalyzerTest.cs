@@ -118,6 +118,26 @@ class C
       VerifyCSharpDiagnostic(test);
     }
 
+    [Test]
+    public void RecordsGetAnalyzed()
+    {
+      var test = "record R { }";
+      var expected = new DiagnosticResult
+      {
+        Id = DiagnosticRuleIds.OpenClass,
+        Message = string.Format(OpenClassAnalyzer.MessageFormat, "R"),
+        Severity = DiagnosticSeverity.Error,
+
+        // Column 1 because the whole record declaration is the node of interest
+        Locations = new[] {new DiagnosticResultLocation("Test0.cs", 1, 1)}
+      };
+
+      VerifyCSharpDiagnostic(test, expected);
+
+      test = "sealed Record R {{ }}";
+      VerifyCSharpDiagnostic(test);
+    }
+
     protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer() => new OpenClassAnalyzer();
   }
 }

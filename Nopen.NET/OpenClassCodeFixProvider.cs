@@ -34,29 +34,29 @@ namespace Nopen.NET
       var diagnosticSpan = diagnostic.Location.SourceSpan;
 
       // Find the type declaration identified by the diagnostic.
-      var classDeclaration = (ClassDeclarationSyntax) root.FindNode(diagnosticSpan);
+      var typeDeclaration = (TypeDeclarationSyntax) root.FindNode(diagnosticSpan);
 
       // Register a code action that will invoke the fix.
       context.RegisterCodeFix(CodeAction.Create(
           title,
-          c => MakeSealedAsync(context.Document, classDeclaration, c),
+          c => MakeSealedAsync(context.Document, typeDeclaration, c),
           title),
         diagnostic
       );
     }
 
-    private static async Task<Document> MakeSealedAsync(Document document, ClassDeclarationSyntax classDeclaration, CancellationToken cancellationToken)
+    private static async Task<Document> MakeSealedAsync(Document document, TypeDeclarationSyntax typeDeclaration, CancellationToken cancellationToken)
     {
       // Make sure that declarations of partial classes get formatted as "sealed partial class" not "partial sealed class"
       var sealedToken = SyntaxFactory.Token(SyntaxKind.SealedKeyword);
-      var modifiers = classDeclaration.Modifiers;
+      var modifiers = typeDeclaration.Modifiers;
       var offset = modifiers.Any(it => it.Kind() == SyntaxKind.PartialKeyword) ? 1 : 0;
       var index = modifiers.Count - offset;
-      var newDeclaration = classDeclaration.WithModifiers(modifiers.Insert(index, sealedToken));
+      var newDeclaration = typeDeclaration.WithModifiers(modifiers.Insert(index, sealedToken));
 
       // Replace the old class declaration with the new class declaration.
       var oldRoot = await document.GetSyntaxRootAsync(cancellationToken);
-      var newRoot = oldRoot.ReplaceNode(classDeclaration, newDeclaration);
+      var newRoot = oldRoot.ReplaceNode(typeDeclaration, newDeclaration);
       return document.WithSyntaxRoot(newRoot);
     }
   }

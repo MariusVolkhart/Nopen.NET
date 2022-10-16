@@ -35,6 +35,14 @@ namespace Nopen.NET.Test
       VerifyCSharpFix(inViolation, @fixed);
     }
 
+    [Test]
+    public void RecordBecomesSealed()
+    {
+      const string inViolation = "record B {}";
+      const string @fixed = "sealed record B {}";
+      VerifyCSharpFix(inViolation, @fixed);
+    }
+
     protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer() => new OpenClassAnalyzer();
 
     protected override CodeFixProvider GetCSharpCodeFixProvider() => new OpenClassCodeFixProvider();
