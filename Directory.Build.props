@@ -22,5 +22,6 @@
     <LangVersion>7.3</LangVersion>
     <Features>strict</Features>
     <Deterministic>true</Deterministic>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
 </Project>
