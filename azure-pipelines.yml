@@ -33,11 +33,7 @@ steps:
   inputs:
     versionSpec: '5.5.0'
 
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    packagesToPush: $(Build.ArtifactStagingDirectory)/*.nupkg
-    nuGetFeedType: external
-    publishFeedCredentials: 'NuGet Nopen.NET'
+- script: |
+    nuget push $(Build.ArtifactStagingDirectory)/*.nupkg -src https://api.nuget.org/v3/index.json -ApiKey $(NugetApiKey)
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   displayName: 'NuGet Push'
